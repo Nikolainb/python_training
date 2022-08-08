@@ -4,12 +4,6 @@ import time
 import json
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-
 
 class TestTest1():
     def setup_method(self, method):
@@ -27,14 +21,27 @@ class TestTest1():
             return set(wh_now).difference(set(wh_then)).pop()
 
     def test_test1(self):
-        self.driver.get("http://testbase.ru/")
-        self.driver.set_window_size(1936, 1056)
+        self.open_home_page()
+        self.expand_browser_window()
+        self.open_groups_page()
+        # переход по вкладке на другую страницу
+        self.driver.find_element(By.LINK_TEXT, "Как можно и нельзя автоматизировать").click()
+        self.vars["win3452"] = self.wait_for_window(2000)
+        self.driver.switch_to.window(self.vars["win3452"])
+
+    def open_groups_page(self):
+        # переход по вкладкам
         self.driver.find_element(By.LINK_TEXT, "Гуглить").click()
         self.driver.find_element(By.CSS_SELECTOR, "#menu-item-163 > a").click()
         self.driver.find_element(By.CSS_SELECTOR, "#menu-item-12 > a").click()
         self.driver.find_element(By.LINK_TEXT, "Автоматизировать").click()
         self.vars["window_handles"] = self.driver.window_handles
-        self.driver.find_element(By.LINK_TEXT, "Как можно и нельзя автоматизировать").click()
-        self.vars["win3452"] = self.wait_for_window(2000)
-        self.driver.switch_to.window(self.vars["win3452"])
+
+    def expand_browser_window(self):
+        # Expand browser window
+        self.driver.set_window_size(1936, 1056)
+
+    def open_home_page(self):
+        # open home page
+        self.driver.get("http://testbase.ru/")
 
