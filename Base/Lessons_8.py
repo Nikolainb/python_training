@@ -34,10 +34,22 @@ while True:
         break
 
 print("-----------")
-i = 0
+i = 1000
 while True:
     i = i + 1
     print(i)
 
 
 
+a = 1000
+b = 0.1
+while True:
+    a = a * b
+    print(int(a))
+
+print("-----------")
+i = 1000
+while True:
+    i = i + 1
+    print(
+        1i)
